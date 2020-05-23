@@ -25,7 +25,7 @@
           </el-row>
         </el-form-item>
         <el-form-item>
-          <el-button class="loginBtn" type="primary" @click="login">登录</el-button>
+          <el-button class="loginBtn" type="primary" @click="login" :loading="loginLoading">登录</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -43,6 +43,7 @@ export default {
         mobile: '',
         code: ''
       },
+      loginLoading: false,
       rules: {
         mobile: [
           { required: true, message: '请输入手机号码', trigger: 'blur' },
@@ -68,6 +69,8 @@ export default {
     },
     // 数据的提交
     submitData () {
+      // 将加载状态设置为true
+      this.loginLoading = true
       // 发送请求到服务器
       axios({
         url: 'http://ttapi.research.itcast.cn/mp/v1_0/authorizations',
@@ -76,12 +79,14 @@ export default {
       }).then(res => {
         // res 中有一个属性叫做data,在data 中有两个属性后面我们会用上: token , refresh_token
         // 只要进入到这个方法中说明登录成功
-        // 跳转到主页
-        this.$router.push('/')
         this.$message({
           message: '登录成功',
           type: 'success'
         })
+        // 将加载状态设置为false
+        this.loginLoading = false
+        // 跳转到主页
+        this.$router.push('/')
       }).catch(err => {
         this.$message.error('手机号码或者验证码错误')
         console.log(err)
