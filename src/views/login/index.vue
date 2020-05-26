@@ -20,7 +20,8 @@
                   <el-input v-model="form.code" placeholder="请输入密码"></el-input>
               </el-col>
               <el-col :span="8" :offset="2">
-                  <el-button class="colbtn" @click="getCode">获取验证码</el-button>
+                  <el-button class="colbtn" @click="getCode" :disabled="!!timer">
+                    {{timer ? `${codeTime}秒后获取` : '获取验证码'}}</el-button>
               </el-col>
           </el-row>
         </el-form-item>
@@ -66,7 +67,11 @@ export default {
           // pattern: /true/ 只能为正确
           { pattern: /true/, message: '请先阅读协议', trigger: 'change' }
         ]
-      }
+      },
+      // 倒计时的时候
+      codeTime: 10,
+      // 设置一个计时器
+      timer: null
     }
   },
   methods: {
@@ -118,8 +123,19 @@ export default {
           console.log(errMsg)
           return
         }
-        // 验证通过
-        console.log('这里是通过之后的代码')
+        // 验证通过:开启倒计时
+        this.timer = setInterval(() => {
+          // 时间需要减少
+          this.codeTime--
+          // 当时间为零时, 需要将定时器清除
+          if (this.codeTime <= 0) {
+            // 清除定时器
+            clearTimeout(this.timer)
+            // 重置倒计时
+            this.codeTime = 10
+            this.timer = null
+          }
+        }, 1000)
       })
     }
   }
