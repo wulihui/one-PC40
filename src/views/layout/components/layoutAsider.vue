@@ -5,15 +5,15 @@
       <img src="./logo_admin.png" alt="" />
     </div>
     <!-- 导航栏菜单 -->
-    <el-menu :router="true" :unique-opened="true" default-active="1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" background-color="#353b4e" text-color="#ccc" active-text-color="#409eff">
-      <el-menu-item index="1">
+    <el-menu :router="true" :unique-opened="true" default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" background-color="#353b4e" text-color="#ccc" active-text-color="#409eff">
+      <el-menu-item index="/home">
         <span slot="title">首页</span>
       </el-menu-item>
       <el-submenu index="2">
         <template slot="title">
           <span>内容管理</span>
         </template>
-        <el-menu-item index="2-1">
+        <el-menu-item index="/publish">
           <span slot="title">发布文章</span>
         </el-menu-item>
         <el-menu-item index="2-2">

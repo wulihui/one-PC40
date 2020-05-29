@@ -8,7 +8,11 @@
         <el-header>
           <layoutheader />
         </el-header>
-        <el-main>Main</el-main>
+        <el-main>
+          <!-- 将来请求 home,index,publish...路径是,优先加载layout -->
+          <!-- 加载完layout之后再用home,index,publish组件替换layout中的router-view -->
+          <router-view />
+        </el-main>
       </el-container>
     </el-container>
   </div>
